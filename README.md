@@ -1,1 +1,1 @@
-# jaccard-join-duckbB
+# jaccard-join-duckdb
