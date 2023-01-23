@@ -1,0 +1,122 @@
+id,source,entity,rec_id,first_name,last_name,sex,age,birth_place,house_num,county_desc,street_name,zip_code,phone_num
+2_22_3326652,2,22,3326652,whitney,baker,female,29,in,709,durham,green,27701, 
+2_31_3904957,2,31,3904957,latonya,mciver,female,40,va,30,forsyth,glenwood,27106,9166714
+2_131_12315539,2,131,12315539,alice,feldbusch,female,29,nc,119,wake,fawn,27587, 
+2_140_12924542,2,140,12924542,justin,brown,male,34,ca,8510,wake,silhouette,27613, 
+2_222_12748029,2,222,12748029,stephanie,eissens,female,38,nc,133,wake,wards ridge,27513, 
+2_231_9728052,2,231,9728052,william,mcinerney,male,29,nc,265,orange,severin,27516, 
+2_240_13265262,2,240,13265262,danielle,peschon,female,28,tn,2319,wake,hinton,27612, 
+2_331_13927418,2,331,13927418,james,byrd,male,53,nc,610,wayne,park,27530,9152245
+2_431_2134645,2,431,2134645,ainslie,guion,female,57,ky,323,craven,trenton,28523,8144405
+2_440_12811452,2,440,12811452,heather,spence,female,33,nc,6009,wake,splitrock,27539, 
+2_522_12715739,2,522,12715739,judy,parker,female,56,nc,249,wake,money tree,27545, 
+2_531_12623108,2,531,12623108,alessandra,geboff,female,42,nc,3508,wake,peach haven,27607, 
+2_540_3173387,2,540,3173387,kathleen,padgett,female,53,nh,12,durham,willow creek,27705, 
+2_622_6223703,2,622,6223703,karen,gollins,female,57,ma,425,hoke,barefoot,28306,2297174
+2_631_6262784,2,631,6262784,zusmekia,harrington,male,41,nc,312,hoke,stubbs,28376, 
+2_640_13837034,2,640,13837034,brandon,ash,unk,26, ,112,wayne,oak summit,27863, 
+2_722_13865294,2,722,13865294,philip,hall,male,47,wv,3445,wayne,nc 111,27534, 
+2_731_7871103,2,731,7871103,kenneth,hannah,male,59,mi,1016,mecklenburg,clearbrook,28105, 
+2_840_12375716,2,840,12375716,nancy,stafford,female,56,nc,720,wake,little leaf,27540, 
+2_922_12843169,2,922,12843169,delton,brown,male,57,nc,5904,wake,spring glen,27616, 
+2_1022_7999709,2,1022,7999709,courtney,mackey,female,23, ,1319,mecklenburg,rising oak,28206, 
+2_1040_10986386,2,1040,10986386,anniatha,frazier mcmillan,female,67,nc,91,robeson,parrot,28360, 
+2_1122_68628,2,1122,68628,patricia,kurt,female,58,ny,609,alamance,westbrook,27215,9234263
+2_1131_984576,2,1131,984576,mary lou,iantosca,female,53,nj,9414,cabarrus,leverwood,28027,7952380
+2_1140_12513318,2,1140,12513318,amber,smith,female,32,sc,7405,wake,peppercorn,27613, 
+2_1222_962821,2,1222,962821,le shondra,mcmullen,female,47, ,152,cabarrus,robbins,28025, 
+2_1240_13627651,2,1240,13627651,teresa,starnes,female,63,nc,3809,wake,bosco,27562, 
+2_1340_13807668,2,1340,13807668,denise,wells,female,37,nc,312,wayne,whitfield,27530, 
+2_1422_12819023,2,1422,12819023,marion,covington,male,64,nc,6800,wake,madison ridge,27613, 
+2_1431_13734344,2,1431,13734344,elena,kyriakoulis,female,25, ,140,watauga,brown white dorm,28608,6103595
+2_1440_1699467,2,1440,1699467,christopher,brophy,male,36,sc,1572,chatham,lystra,27517,6361622
+2_1522_8428365,2,1522,8428365,michael,brenneman,male,40,co,2905,mecklenburg,shady reach,28214, 
+2_1531_13717497,2,1531,13717497,alexandra,belk,female,35,nc,276,watauga,oak,28607,2681451
+2_1722_7762190,2,1722,7762190,adrain,hunt,female,34, ,310,mecklenburg,28th,28206, 
+2_1731_7826253,2,1731,7826253,lisa,goodspeed,female,60,nj,719,mecklenburg,museum,28207, 
+2_1740_7342937,2,1740,7342937,kathren,hayes,female,38,fl,3600,mecklenburg,conway,28209, 
+2_1822_7471657,2,1822,7471657,courtney,harper,female,23,sc,3009,mecklenburg,westwinds,28214, 
+2_1831_7434013,2,1831,7434013,dana,hawkins,female,48,ny,3236,mecklenburg,park,28209, 
+2_1840_11606714,2,1840,11606714,joseph,baker,male,46,va,614,stanly,scarlet leaf,28129, 
+2_1922_11398449,2,1922,11398449,adam,allen,male,32,tx,262,rutherford,kanipe ranch,28114,7487457
+2_1940_7342755,2,1940,7342755,jeffery,sturdivant,male,56,nc,14016,mecklenburg,millers creek,28278, 
+2_2022_11297689,2,2022,11297689,lisa,brennan,female,43,ny,148,rowan,fellowship park,28023, 
+2_2040_7971862,2,2040,7971862,anna,mccarthy,female,69,pa,14716,mecklenburg,old vermillion,28078, 
+2_2122_2121722,2,2122,2121722,jasmine,sobalvarro,female,31,ca,3253,craven,brunswick,28562,6757667
+2_2131_2164783,2,2131,2164783,mary,noell,female,44,nc,1115,craven,plymouth,28562, 
+2_2140_9520173,2,2140,9520173,chelsea,donovan,female,36, ,514,onslow,court,28540, 
+2_2240_934374,2,2240,934374,latricia,hunter,female,46,nc,7806,cabarrus,peach blossom,28075,4556292
+2_2322_3138469,2,2322,3138469,craig,baysden,male,39,fl,2501,duplin,fountaintown,28521,3884532
+2_2340_11298432,2,2340,11298432,logan,morgan,female,30,nc,2117,rowan,bertha,28083, 
+2_2422_9841190,2,2422,9841190,ricky,pitts,male,48, ,1012,orange,saluda,27514, 
+2_2440_9861937,2,2440,9861937,lisa,hanami,female,32, ,201,orange,poplar,27510, 
+2_2540_9729641,2,2540,9729641,george,howard,male,51,nc,115,orange,merritt mill,27516, 
+2_2622_148884,2,2622,148884,briana,orr,female,26,nc,722,alamance,oakgrove,27253, 
+2_2631_9769629,2,2631,9769629,samuel,demers,male,31,oh,106,orange,legion,27517, 
+2_2722_8809482,2,2722,8809482,christine,horton,female,36,nc,125,moore,clyburn,28373,4614341
+2_2822_13756405,2,2822,13756405,joshua,colenda,male,26, ,521,watauga,meadowview,28607,6031072
+2_2831_13129625,2,2831,13129625,jerry,thomas,male,75,nc,12323,wake,basketweave,27614, 
+2_2931_6172769,2,2931,6172769,dorothy,carmean,female,77,nc,331,henderson,terrys gap,28732,6519789
+2_2940_9137590,2,2940,9137590,david,brown,male,51,il,7418,new hanover,myrtle grove,28409,4426777
+2_3022_9267608,2,3022,9267608,casey,nolan,male,27,md,4173,new hanover,hearthside,28412,6153103
+2_3031_9273324,2,3031,9273324,william,jarratt,male,26,nc,4524,new hanover,tesla park,28412,4257054
+2_3040_9210232,2,3040,9210232,todd,christiansen,male,49,ny,320,new hanover,windsong,28411,2596374
+2_3131_3768537,2,3131,3768537,veronica,hill,female,51,nc,143,edgecombe,spaulding,27801, 
+2_3140_1207977,2,3140,1207977,angel,mcclellan,female,41,nc,3205,caldwell,bowman,28630,3131181
+2_3222_2215461,2,3222,2215461,ramari,thomas,male,20,nc,4020,craven,copperfield,28562,5719120
+2_3231_11011533,2,3231,11011533,daniel,rogers,male,44,nc,3619,robeson,glenn,28371,5687262
+2_3240_2224503,2,3240,2224503,william,long,male,59,nc,115,craven,james,28560,6334362
+2_3322_1860880,2,3322,1860880,albert,caylor,male,74,ga,240,cherokee,white pine,28906,6449478
+2_3331_2393804,2,3331,2393804,patricia,wortham,female,56,dc,2564,cumberland,lull water,28306,4252288
+2_3422_1731845,2,3422,1731845,jaclyn,johnson,female,39,nc,1230,chatham,rosser,27207, 
+2_3431_12631487,2,3431,12631487,charles,mcginn,male,32,il,8412,wake,pilots view,27617, 
+2_3531_1540613,2,3531,1540613,charles,williams,male,67,nc,4500,catawba,red hill,28037,9417429
+2_3622_2399678,2,3622,2399678,sarah,thornton,female,27,nc,2127,cumberland,clinchfield,28304,8185171
+2_3731_2428298,2,3731,2428298,delores,moore,female,43,al,1917,cumberland,cherokee,28303,5875043
+2_3740_2668171,2,3740,2668171,carlton,jones,male,62,wa,4115,cumberland,mckinnon,28312,4835759
+2_3840_11920108,2,3840,11920108,jason,allen,male,22,nc,314,bladen,4th,28320,8760186
+2_3922_11160521,2,3922,11160521,paul,williams,male,34,nc,105,bertie,martin luther king jr,27849,3482399
+2_3931_12807391,2,3931,12807391,patrick,wiggs,male,43,nc,625,wake,washington,27605, 
+2_3940_10586713,2,3940,10586713,dawn,lewis,female,43,nc,40,pitt,carriage house apts,27858, 
+2_4022_10221011,2,4022,10221011,john,williams,male,65,ny,1115,pender,lillington,28457, 
+2_4031_10289123,2,4031,10289123,raynard,blackwell,male,58,nc,1984,person,flat river church,27574, 
+2_4122_1075119,2,4122,1075119,ibn zawdie,stevenson,male,46,pa,1381,cabarrus,kison,28027,2538166
+2_4131_13153808,2,4131,13153808,dustin,spivey,male,25,nc,1131,wake,hodge,27545, 
+2_4231_1619930,2,4231,1619930,redonna,skinner,female,54,nc,4199,catawba,fisherman s,28650,4280299
+2_4322_12282793,2,4322,12282793,james,norris,male,43,nc,6841,wake,madison ridge,27613, 
+2_4331_11407687,2,4331,11407687,elizabeth,wood,unk,38, ,233,rutherford,crestview,28139,2864772
+2_4340_13163864,2,4340,13163864,stephen,petitjean,male,27,nj,5304,wake,neuse ridge,27610, 
+2_4422_1365827,2,4422,1365827,edwin,stetter,male,95,ky,303,carteret,barbour,28557,2220401
+2_4431_12305798,2,4431,12305798,traci,tiemann,female,32, ,3417,wake,renaissance park,27513, 
+2_4522_6732526,2,4522,6732526,edgardo,agosto,female,53,pr,39,johnston,forest glade,27527,4846442
+2_4531_6261089,2,4531,6261089,victoria,mcrae,female,28,nc,1393,hoke,main,28376, 
+2_4540_6751985,2,4540,6751985,victoria,vaughn,female,40,ky,117,johnston,windy hill,27577,3375742
+2_4640_6238137,2,4640,6238137,rashauna,bethea,female,32,nc,163,hoke,yellowstone,28376,3549520
+2_4740_6760160,2,4740,6760160,esthephanie,chavira,female,22,nc,866,johnston,webb mill,27524,9862925
+2_4822_10138133,2,4822,10138133,jeremy,hayden,male,38,va,1169,pasquotank,double bridge,27909,6615595
+2_4831_7197961,2,4831,7197961,amanda,oakley,female,41,nc,1256,martin,sunset,27846,6619806
+2_4840_7261567,2,4840,7261567,sue,miller,female,61,nc,486,mcdowell,bear den mountain,28777,7666298
+2_4922_11476487,2,4922,11476487,christian,banks,male,52, ,2386,sampson,beulah church,28393,5331759
+2_4931_12491631,2,4931,12491631,anthony,smith,male,59,nc,9001,wake,heavenly,27592, 
+2_4940_6769191,2,4940,6769191,dominique,ellis,unk,25, ,296,johnston,big pine,27520, 
+2_5022_6173481,2,5022,6173481,michael,elliott,male,65,nc,18,henderson,meadow,28742,8908186
+2_5031_6902696,2,5031,6902696,jason,murray,male,37,ny,104,lee,wildflower,27330,7779636
+2_5040_12309857,2,5040,12309857,kenneth,neilsen,male,54,va,215,wake,kilbreck,27511, 
+2_5131_3974984,2,5131,3974984,kayla,dineen,female,29,va,4269,forsyth,yadkinville,27106, 
+2_5140_2931420,2,5140,2931420,tiffany,mcguinn,female,37,nc,862,davidson,meadowlands,27107, 
+2_5222_3462830,2,5222,3462830,kenndra,johnson,female,44,nj,3300,durham,shannon,27707, 
+2_5240_11213130,2,5240,11213130,elizabeth,weaver,female,22,nc,729,rowan,riverwalk,28146, 
+2_5322_12833790,2,5322,12833790,nadia,aram,female,42,sc,1341,wake,cameron view,27607, 
+2_5422_556532,2,5422,556532,peter,forfa,male,59,ny,38,buncombe,hartshorn,28715,3331855
+2_5440_6170477,2,5440,6170477,joshua,young,male,39,ky,45,henderson,westview,28732, 
+2_5522_4086982,2,5522,4086982,denise,mathews,female,55,ok,1522,forsyth,janita,27127, 
+2_5631_13782222,2,5631,13782222,brooke,reaves,female,20,nc,172,watauga,tulip tree,28607, 
+2_5822_2617816,2,5822,2617816,clinetta,silver,female,28,nc,921,cumberland,crescent commons,28314,9046017
+2_5922_3208399,2,5922,3208399,kenneth,gaither,male,50,nc,518,durham,cove hollow,27703, 
+2_6231_8493344,2,6231,8493344,jay,weigel,male,60,in,8932,mecklenburg,elkins park,28105, 
+2_6240_8579713,2,6240,8579713,carol,blake,female,82,sc,5101,mecklenburg,prosperity church,28269, 
+2_6340_10171286,2,6340,10171286,charles,winley,male,34, ,15840,pender,nc hwy 210,28457,2312159
+2_6540_12396430,2,6540,12396430,gretchen,gary,female,52,ny,1200,wake,silver sage,27606, 
+2_6622_13160699,2,6622,13160699,katherine,aiken,female,29,nc,2000,wake,university woods,27603, 
+2_6631_13273810,2,6631,13273810,hampton,apple,male,27, ,2119,wake,scarlet maple,27606, 
+2_6640_13424510,2,6640,13424510,james,cobbett,male,51,nh,2709,wake,woodie,27591, 

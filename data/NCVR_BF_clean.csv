@@ -1,0 +1,121 @@
+id,source,entity,rec_id,first_name,last_name,sex,age,birth_place,house_num,county_desc,street_name,zip_code,phone_num
+1_40_13913995,1,40,13913995,abbington,pope,female,23,nc,104,wayne,breezewood,27534, 
+1_41_520429,1,41,520429,angelon,smith,female,40,nc,119,buncombe,flint,28801, 
+1_122_9000404,1,122,9000404,rebecca,wilkins,female,49, ,1501,nash,lafayette,27803, 
+1_140_9350108,1,140,9350108,justin,brown,male,34,ca,211,new hanover,queen,28401,7417817
+1_222_13226442,1,222,13226442,stephanie,eissens meacomes,female,38,nc,4033,wake,enfield ridge,27519, 
+1_240_116265,1,240,116265,danielle,peschon,female,28, ,730,alamance,boone station,27215,2789980
+1_241_8517073,1,241,8517073,lovie,matthews,female,26,tn,5634,mecklenburg,via romano,28270, 
+1_322_6614729,1,322,6614729,sandra,creech,female,52,nc,1347,johnston,crocker,27577,4645707
+1_340_9418808,1,340,9418808,mark,caccio,male,64,ct,605,onslow,windsong north,28584,6008095
+1_341_6619987,1,341,6619987,amanda,spencer,female,37,nc,607,johnston,preston,27576, 
+1_422_10444451,1,422,10444451,teri,mcewen,female,42,nc,2003,pitt,brook,27858, 
+1_440_9332209,1,440,9332209,heather,spence,female,33,nc,4611,new hanover,mcclelland,28405,2155058
+1_441_13264527,1,441,13264527,katherine,lumb,female,56,pa,2103,wake,stonewater glen,27519, 
+1_540_1765721,1,540,1765721,kathleen,padgett,unk,53, ,78,chatham,timber creek,27517, 
+1_541_10807443,1,541,10807443,janine,kube,female,56,mi,112,randolph,parkview,27263, 
+1_640_6287229,1,640,6287229,brandon,ash,male,26, ,249,hyde,squires,27810, 
+1_641_1428440,1,641,1428440,brandon,poteat,male,37, ,1386,caswell,old nc highway 86 n,27379, 
+1_740_654455,1,740,654455,vanessa,wright,female,36,oh,155,buncombe,laurel,28806,4895731
+1_822_10931036,1,822,10931036,katrina,hanson,female,40,nc,3750,robeson,meadowview,28358, 
+1_840_2956302,1,840,2956302,nancy,stafford,female,56,nc,243,davidson,clay,27299, 
+1_922_12317422,1,922,12317422,delton,brown,male,57,nc,5904,wake,spring glen,27616, 
+1_940_13138863,1,940,13138863,keven,painter,male,29,nc,2500,wake,batterhayes,27615, 
+1_941_2537030,1,941,2537030,anita,freeman,female,43,tx,2078,cumberland,lothbury,28304,9759447
+1_1022_8529932,1,1022,8529932,courtney,hackey,female,23, ,1319,mecklenburg,rising oak,28206, 
+1_1040_10950068,1,1040,10950068,anniatha,frazier,female,67,nc,91,robeson,parrot,28360, 
+1_1122_9842647,1,1122,9842647,patricia,kurt,female,58,ny,716,orange,churchill,27517, 
+1_1141_8499728,1,1141,8499728,stacy,mccuen,female,39,nc,8337,mecklenburg,meadow lakes,28210, 
+1_1222_1104748,1,1222,1104748,leshondar,mcmullen,female,47,nc,179,cabarrus,corban,28025,8868123
+1_1240_1340473,1,1240,1340473,teresa,pender,female,63,nc,136,carteret,avis,28570,2694984
+1_1241_13886807,1,1241,13886807,george,aycock,male,72,nc,2236,wayne,nc 581,27863, 
+1_1322_6645830,1,1322,6645830,mary,flowers,female,54,ma,617,johnston,rudy,27520,6703152
+1_1340_3795261,1,1340,3795261,denise,hines,female,37, ,525,edgecombe,lincoln,27801, 
+1_1440_7654663,1,1440,7654663,christopher,brophy,male,36, ,9141,mecklenburg,windknob,28078, 
+1_1441_13723023,1,1441,13723023,leah,chandler,female,24,nc,242,watauga,hampton,28607, 
+1_1540_7933001,1,1540,7933001,miguel,mauriz,male,31,ca,4800,mecklenburg,statesville,28269, 
+1_1541_1078201,1,1541,1078201,kelli,christian,female,34, ,10682,cabarrus,sweethaven,28075,6148158
+1_1622_7646766,1,1622,7646766,susan,abernathy,female,64, ,822,mecklenburg,oak,28214, 
+1_1641_12075684,1,1641,12075684,leslie,brafford,female,57,nc,1032,union,kensrowe,28104, 
+1_1722_11226351,1,1722,11226351,adrain,hunt,female,34,nc,410,rowan,15th,28144, 
+1_1741_7343057,1,1741,7343057,christopher,miller,male,29,ga,7208,mecklenburg,walterboro,28227, 
+1_1922_8247946,1,1922,8247946,adam,allen,male,32,tx,3030,mecklenburg,karen,28205,2893018
+1_1941_7943494,1,1941,7943494,asrat,kidane,male,46,oc,3419,mecklenburg,biscayne,28205, 
+1_2022_788286,1,2022,788286,lisa,brennan,female,43,ny,27,buncombe,fulton,28801,8088554
+1_2040_12686173,1,2040,12686173,anna,mccarthy,female,69,pa,4808,wake,cypress ford,27526, 
+1_2140_9382586,1,2140,9382586,chelsea,donovan,female,36,il,509,new hanover,2nd,28401,6464606
+1_2141_9339895,1,2141,9339895,jeremy,schwison,male,28, ,4166,new hanover,spirea,28403, 
+1_2222_9637253,1,2222,9637253,leigh,jenkins,female,29,nc,1802,orange,granville towers,27514, 
+1_2322_9434637,1,2322,9434637,craig,baysden,unk,39, ,103,onslow,old fountain,28574, 
+1_2341_478005,1,2341,478005,jesseca,bryant,female,32,sc,24,buncombe,ravenwood,28732, 
+1_2422_3744443,1,2422,3744443,ricky,pitts,male,48, ,2405,edgecombe,sarah,27801,9851430
+1_2440_7987650,1,2440,7987650,lisa,hanami,female,32,ny,8009,mecklenburg,andover creek,28210, 
+1_2522_9723262,1,2522,9723262,alyson,helms,female,23,nc,213,orange,summerwalk,27517, 
+1_2540_2370497,1,2540,2370497,george,howard,male,51,nc,313,cumberland,abbottswood,28301,3393453
+1_2541_13176126,1,2541,13176126,lisa,boyd,female,55,ma,2901,wake,springsweet,27612, 
+1_2622_9753093,1,2622,9753093,briana,lefler,female,26,nc,4206,orange,mill creek,27231, 
+1_2640_977594,1,2640,977594,christopher,wattie,male,38, ,5669,cabarrus,hammermill,28075,8404383
+1_2722_10836165,1,2722,10836165,christine,jones,female,36,nc,148,richmond,perkins,28347,4612525
+1_2740_3773605,1,2740,3773605,tammy,ruzbacki,female,56,ca,101,edgecombe,church,27886,4889636
+1_2741_8891564,1,2741,8891564,sherry,rogers,female,43,md,1609,nash,briar glenn,27804, 
+1_2822_8605310,1,2822,8605310,joshua,colenda,male,26,va,20605,mecklenburg,willow pond,28031, 
+1_2840_8464582,1,2840,8464582,jeramy,sinclair,male,37,nc,7324,mecklenburg,creekwood quorum,28212, 
+1_2841_8536461,1,2841,8536461,daniel,fellenzer,male,21,oc,1530,mecklenburg,mallard creek church,28262, 
+1_2922_8646097,1,2922,8646097,branden,lee,male,28, ,1616,mecklenburg,chasewood,28212, 
+1_3022_363535,1,3022,363535,casey,nolan,male,27,md,3048,brunswick,yorkstone,28451,6153103
+1_3041_12401522,1,3041,12401522,andrea,smaxwell,female,34,in,6207,wake,creek glen,27502, 
+1_3141_13928423,1,3141,13928423,sebastian,woodlock,male,19,nc,1503,wayne,beech,27530,2214591
+1_3241_10003710,1,3241,10003710,beulah,hawkins,female,57,nc,8319,pamlico,nc hwy 304,28515,4740199
+1_3322_248471,1,3322,248471,albert,caylor,male,74, ,138,brunswick,park,28461, 
+1_3340_2405081,1,3340,2405081,john,smith,male,25,ny,1067,cumberland,pleasant oak,28314,4873616
+1_3440_2047934,1,3440,2047934,emily,smith,female,41, ,410,columbus,lewis,28472, 
+1_3441_203150,1,3441,203150,rhonda,teague,female,56,nc,8749,alamance,pleasant hill church,27298,3286408
+1_3522_3103379,1,3522,3103379,timothy,brinkley,male,39,nc,205,davie,old homeplace,27006, 
+1_3540_3176455,1,3540,3176455,william,hodan,male,46,mi,4301,durham,waterford valley,27713, 
+1_3541_3168895,1,3541,3168895,william,mcghee,male,76,nc,3503,durham,brightwood,27703, 
+1_3622_3298829,1,3622,3298829,sarah,thornton,female,27, ,2523,durham,chapel hill,27707, 
+1_3722_11566856,1,3722,11566856,cedric,mclain,male,46,ny,12940,scotland,stratford,28352,2911655
+1_3822_11891631,1,3822,11891631,david,troy,male,67,nc,209,bladen,mercer mill,28337,8720913
+1_4022_10236169,1,4022,10236169,john,williams,male,65,ny,1115,pender,lillington,28457,6023496
+1_4140_14001411,1,4140,14001411,wayne,harris,male,61,nc,2200,wilkes,nc hwy 16,28697, 
+1_4222_1542168,1,4222,1542168,dakotah,ledford,male,29,nc,1125,catawba,fairgrove church,28613, 
+1_4241_10301138,1,4241,10301138,darlene,sutton,female,47,oh,358,person,gravitte,27573, 
+1_4341_10364870,1,4341,10364870,mary,bodmer,female,21,va,304,pitt,gateway west hall,27858, 
+1_4422_1365826,1,4422,1365826,edwin,stetter,male,95,ky,303,carteret,barbour,28557,2220401
+1_4441_6596725,1,4441,6596725,blythe,rose,male,87,nc,708,jackson,riverbend,28779,6311584
+1_4522_13046599,1,4522,13046599,edgardo,agosto,male,53,pr,603,wake,park,27511, 
+1_4541_13015274,1,4541,13015274,katherine,sommerville,female,66,tn,117,wake,gettysburg,27513, 
+1_4622_3075690,1,4622,3075690,erick,echevarria,male,26, ,107,davie,morning glory,27028, 
+1_4640_2274654,1,4640,2274654,rashauna,bethea,female,32,nc,1226,cumberland,skyline,28314,3549520
+1_4841_416666,1,4841,416666,crystal,beaver,female,41,nc,270,yancey,molly,28714,2847364
+1_5040_6886105,1,5040,6886105,kenneth,neilsen,male,54,va,1106,lee,hawkins,27330, 
+1_5041_6885017,1,5041,6885017,james,grace,male,68,ny,1827,lee,irish,27332, 
+1_5122_3877854,1,5122,3877854,beverly,terry,female,58, ,2931,forsyth,new walkertown,27105, 
+1_5140_3940114,1,5140,3940114,tiffany,mcguinn,female,37,nc,977,forsyth,benjamins,27103,9617464
+1_5222_3277797,1,5222,3277797,kenndra,quiles,female,44,nj,1301,durham,rosedale,27707, 
+1_5241_3351392,1,5241,3351392,jana,roberts,female,25,nc,1313,durham,hudson,27705, 
+1_5340_3567721,1,5340,3567721,emily,blanchard,female,30,oh,2750,durham,campus walk,27705, 
+1_5422_5960577,1,5422,5960577,peter,forfa,male,59,ny,55,haywood,skyline,28716, 
+1_5440_490351,1,5440,490351,joshua,young,male,39,ky,600,buncombe,merrimon,28804,2271030
+1_5441_443700,1,5441,443700,thomas,defrange,male,66, ,214,buncombe,governors view,28805,2583346
+1_5540_4174258,1,5540,4174258,billy,foote,male,41,va,4405,forsyth,kinnamon,27103,9861737
+1_5541_3900284,1,5541,3900284,courtney,snell,female,27,va,825,forsyth,moravia,27107, 
+1_5622_498377,1,5622,498377,terry,ouser,male,53,nc,205,buncombe,chamwood,28804,7128774
+1_5640_3369336,1,5640,3369336,amanda,waldrop,female,34, ,5146,durham,willowhaven,27712, 
+1_5722_659298,1,5722,659298,james,keefer,male,52,in,78,buncombe,colton,28748, 
+1_5740_1049954,1,5740,1049954,jacqueline,campbell,female,57,ga,404,cabarrus,wood,28083,9337764
+1_5741_1051353,1,5741,1051353,gregory,stealey,male,32, ,403,cabarrus,ludwig,28027, 
+1_5840_2845620,1,5840,2845620,monica,tyler,female,39,nc,701,davidson,hitchcock,27265, 
+1_5841_2845992,1,5841,2845992,andrew,henry,male,44,mi,361,davidson,country acres,27107, 
+1_5941_3640821,1,5941,3640821,barney,lawrence,male,45,va,704,durham,orindo,27713, 
+1_6022_4110437,1,6022,4110437,shirley,johnson,female,74,ny,5215,forsyth,york place,27051,2599166
+1_6040_5998315,1,6040,5998315,charles,grice,male,35,nc,926,haywood,dogwood,28751, 
+1_6140_7590796,1,6140,7590796,daryl,larner,male,46,az,428,mecklenburg,walnut,28208, 
+1_6141_7624860,1,6141,7624860,joseph,blumberg,male,38,nc,2501,mecklenburg,eargle,28269, 
+1_6222_8429473,1,6222,8429473,christian,maldonado,male,24, ,9201,mecklenburg,university city,28223, 
+1_6322_9816283,1,6322,9816283,david,krivonak,female,66,ri,522,orange,dogwood,27516, 
+1_6422_11048266,1,6422,11048266,mary,knight,female,60,nc,1338,rockingham,wolf island,27320, 
+1_6440_11129641,1,6440,11129641,cynthia,farmer,female,63,nc,170,rockingham,jarrell,27320,3493763
+1_6522_12272592,1,6522,12272592,james,defrancisco,male,57,ny,3220,wake,lynn ridge,27613, 
+1_6541_12401827,1,6541,12401827,beverly,johnson,female,70,nc,2701,wake,brookwood,27603, 
+1_6641_13463311,1,6641,13463311,gabriela,moore,female,66,oc,5512,wake,cotton top,27545, 

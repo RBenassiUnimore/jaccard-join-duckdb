@@ -1,0 +1,6 @@
+INPUT_TABLE = "input"
+TOKENS_VIEW = "tokens"
+DOC_FREQ_VIEW = "df"
+TOKENS_DOC_FREQ_VIEW = "tkdf"
+PREFIXES_VIEW = "prefixes"
+CANDIDATE_SET_VIEW = "candset"

@@ -1,0 +1,98 @@
+id,source,entity,rec_id,first_name,last_name,sex,age,birth_place,house_num,county_desc,street_name,zip_code,phone_num
+0_22_9865350,0,22,9865350,whitney,baker,female,29,in,400,orange,poplar,27510, 
+0_40_12768214,0,40,12768214,abbington,pope,female,23,nc,1221,wake,westview,27605, 
+0_122_9112102,0,122,9112102,rebecca,wilkins,female,49,nc,811,new hanover,magnolia,28428,8120512
+0_140_9704280,0,140,9704280,justin,brown,male,34,ca,3225,orange,us hwy 70,27243, 
+0_222_3198122,0,222,3198122,stephanie,eissens,female,38,nc,100,durham,village circle,27713, 
+0_240_94472,0,240,94472,danielle,peschon,female,28,tn,1049,alamance,kelso,27215,6758354
+0_251_6640272,0,251,6640272,michelle,hinnant,female,45,nc,130,johnston,braswell,27577,2024737
+0_340_10179287,0,340,10179287,mark,caccio,male,64,ct,213,pender,scottsdale,28411,6008095
+0_351_6376559,0,351,6376559,nancy,hoover,female,55,ny,618,iredell,isle of pines,28117, 
+0_451_1422321,0,451,1422321,thomas,johnson,male,29,nc,501,caswell,cherry grove,27379,2696260
+0_522_12340214,0,522,12340214,judy,parker,unk,56, ,1929,wake,hodge,27545, 
+0_551_12722768,0,551,12722768,michael,bode,male,42,in,2416,wake,barton oaks,27614, 
+0_622_2403315,0,622,2403315,karen,palmer,female,57,ma,206,cumberland,mcfadyen,28314, 
+0_651_13155309,0,651,13155309,ernest,jamison,male,54,nc,1215,wake,collington,27511, 
+0_722_11491604,0,722,11491604,philip,hall,male,47,wv,7541,sampson,newton grove,28334,3663787
+0_740_6154279,0,740,6154279,vanessa,wright,female,36,oh,10,henderson,rice,28732,6069593
+0_751_2581542,0,751,2581542,adrian,madsen,male,46, ,324,cumberland,bitteroot,28314,2910409
+0_851_1058989,0,851,1058989,sara,plante,unk,30, ,2000,cabarrus,ramble,28107, 
+0_922_12748976,0,922,12748976,delton,brown,male,57,nc,5904,wake,spring glen,27616, 
+0_940_10339747,0,940,10339747,keven,painter,male,29,nc,2241,pitt,university suites,27834,7418850
+0_951_1693517,0,951,1693517,james,wilson,male,75,wv,20005,chatham,bragg,27517,9290155
+0_1022_7968679,0,1022,7968679,courtney,mackey,female,23, ,1319,mecklenburg,rising oak,28206, 
+0_1040_10986345,0,1040,10986345,anniatha,frazier mcmillan,female,67,nc,91,robeson,parrot,28360, 
+0_1051_2878768,0,1051,2878768,vera,minton,female,69,sc,126,davidson,st dylan,27295, 
+0_1140_6460300,0,1140,6460300,amber,broach,female,32,sc,825,iredell,vintage,28115, 
+0_1151_536912,0,1151,536912,dillon,whatley,male,26,az,170,buncombe,palmer ford,28787,6454743
+0_1222_1130018,0,1222,1130018,leshondar,mcmullen,female,47,nc,814,cabarrus,concord chase,28025,8868123
+0_1240_1391987,0,1240,1391987,teresa,starnes,female,63,nc,635,carteret,pearson,28570,3932875
+0_1251_10408103,0,1251,10408103,jennifer,barber,female,46,nc,1309,pitt,sonata,27858, 
+0_1322_9545049,0,1322,9545049,mary,flowers,female,54,ma,621,onslow,prospect,28460,4376705
+0_1351_6909311,0,1351,6909311,andreas,trump,male,30,dc,300,lee,queens,27330,2586509
+0_1422_13489670,0,1422,13489670,marion,covington,male,64,nc,649,wake,pendleton lake,27614, 
+0_1451_11959513,0,1451,11959513,rebecca,jones,female,42,va,6702,union,wesley glen,28173, 
+0_1622_7186788,0,1622,7186788,susan,abernathy,female,64,nc,221,madison,dallas jack,28753,6838719
+0_1640_12169622,0,1640,12169622,judy,degernes,female,65,mn,1316,union,crane,28173, 
+0_1651_757921,0,1651,757921,ceyanne,brooks,female,44,ms,500,buncombe,kensington,28803,6912475
+0_1740_13855498,0,1740,13855498,kathren,woodham,female,38, ,562,wayne,providence church,27530,7357046
+0_1822_3015982,0,1822,3015982,courtney,harper,female,23,sc,262,davidson,hudson,27107, 
+0_1840_7447052,0,1840,7447052,joseph,baker,male,46, ,2417,mecklenburg,normancrest,28270, 
+0_1851_3586283,0,1851,3586283,monica,swisher,female,46,tx,75,durham,forest oaks,27705, 
+0_1940_8280393,0,1940,8280393,jeffery,sturdivant,male,56,nc,14016,mecklenburg,millers creek,28278, 
+0_1951_12140921,0,1951,12140921,ross,brigman,male,90,nc,3816,union,fox run,28104, 
+0_2051_11228680,0,2051,11228680,kevin,johnson,male,45,ny,217,rowan,13th,28144, 
+0_2122_9589555,0,2122,9589555,jasmine,sobalvarro,female,31,ca,115,onslow,spring branch,28555, 
+0_2222_10067806,0,2222,10067806,leigh,jenkins,unk,29, ,191,beaufort,sabre pointe,27808, 
+0_2240_11945491,0,2240,11945491,latricia,hunter,female,46, ,620,union,beauhaven,28173, 
+0_2340_948059,0,2340,948059,logan,shuman,female,30,nc,1628,cabarrus,eastwood,28083, 
+0_2451_12188650,0,2451,12188650,jung,kim,female,28,oc,3641,union,fox run,28104, 
+0_2651_8462590,0,2651,8462590,sacha,bias,female,43,sc,4920,mecklenburg,misty oaks,28269, 
+0_2740_8889689,0,2740,8889689,tammy,ruzbacki,female,56,ca,808,nash,colony,27804,4889636
+0_2840_8536075,0,2840,8536075,jeramy,sinclair,male,37,nc,9161,mecklenburg,meadow vista,28213, 
+0_2922_12142977,0,2922,12142977,branden,lee,male,28,il,1014,union,spanish moss,28079, 
+0_3122_8935054,0,3122,8935054,tamika,kirksey,female,41,sc,609,nash,lakeview,27856,8223116
+0_3140_907191,0,3140,907191,angel,johnson,female,41, ,135,burke,ribet,28690, 
+0_3222_10322974,0,3222,10322974,ramari,thomas,male,20,nc,826,pitt,davenport farm,28590,6261096
+0_3240_2257371,0,3240,2257371,william,long,male,59,nc,211,craven,glenburnie,28560,6580447
+0_3251_12404944,0,3251,12404944,edward,finch,male,30,ny,6221,wake,hills,27609, 
+0_3351_2455593,0,3351,2455593,hannelore,ringer,female,32,va,5716,cumberland,crepe myrtle,28348, 
+0_3440_2048840,0,3440,2048840,emily,smith,female,41,nc,611,columbus,pine circle,28463,6545619
+0_3522_2877261,0,3522,2877261,timothy,brinkley,male,39,nc,1335,davidson,craver,27295, 
+0_3551_2874784,0,3551,2874784,christopher,hines,male,21,nc,136,davidson,lakeview,27360, 
+0_3640_12658601,0,3640,12658601,peter,mcdaniel,male,47, ,6201,wake,grace park,27560, 
+0_3722_2623328,0,3722,2623328,cedric,mclain,male,46,ny,8429,cumberland,english saddle,28314,5061091
+0_3740_10998806,0,3740,10998806,carlton,jones,male,62,wa,205,robeson,21st,28358,9645618
+0_3751_1179043,0,3751,1179043,james,kelly,male,68,mi,416,cabarrus,summerlake,28025,9604005
+0_3822_11913154,0,3822,11913154,david,troy,male,73,nc,209,bladen,mercer mill,28337, 
+0_3840_11013021,0,3840,11013021,jason,allen,male,22,nc,1,robeson,university,28372,3760186
+0_4040_10400866,0,4040,10400866,george,mills,male,70,nc,3682,pitt,ivy,27858,7147279
+0_4140_13775206,0,4140,13775206,wayne,harris,male,61,nc,129,watauga,lazy lake,28607,4571070
+0_4240_10599887,0,4240,10599887,katherine,pendergast,female,19,nc,3323,pitt,10th,27858, 
+0_4322_13076031,0,4322,13076031,james,norris,male,43,nc,205,wake,hyannis,27540, 
+0_4340_13125274,0,4340,13125274,stephen,petitjean,male,27,nj,3200,wake,madison farm,27529, 
+0_4440_6109000,0,4440,6109000,vivian,lutz,female,83,mi,45,henderson,perseverance pathway,28739,6984701
+0_4622_6336957,0,4622,6336957,erick,echevarria,male,26,pr,114,iredell,greylin,28625, 
+0_4651_6284216,0,4651,6284216,phillip,collins,male,54,nc,122,hoke,eagle,28306,8187263
+0_4722_1134568,0,4722,1134568,rosemary,hyman,female,66, ,11495,cabarrus,mooresville,28036, 
+0_4740_11511493,0,4740,11511493,esthephanie,chavira,female,22,nc,4044,sampson,beulah,28328,9862925
+0_4751_1617470,0,4751,1617470,jerry,eckard,male,70, ,6777,catawba,little mountain,28673, 
+0_4822_7212329,0,4822,7212329,jeremy,hayden,male,38,va,6562,martin,fire dept,27892,6615595
+0_4840_7246686,0,4840,7246686,sue,miller,female,61,nc,486,mcdowell,bear den mountain,28777,7666298
+0_4851_10323341,0,4851,10323341,abby,brown,female,25,nc,888,pitt,winterfield,28590,7144919
+0_4922_6825581,0,4922,6825581,christian,banks,male,52,oh,97,johnston,neighbor,27524,9890082
+0_4940_6724474,0,4940,6724474,dominique,ellis,female,25,nc,296,johnston,big pine,27520,6336952
+0_5022_683957,0,5022,683957,michael,elliott,male,65, ,144,buncombe,colony,28704,6872423
+0_5251_13015724,0,5251,13015724,ruth,jaworski,female,45,nc,403,wake,new rail,27513, 
+0_5340_12561570,0,5340,12561570,emily,blanchard,female,30, ,1736,wake,talking rock,27519, 
+0_5451_2369736,0,5451,2369736,charles,thomas,male,40,tn,70,cumberland,cambridge arms,28303,8167767
+0_5540_10712750,0,5540,10712750,billy,foote,male,41,va,3251,randolph,flynt,27298, 
+0_5551_4038316,0,5551,4038316,krishauna,rolle,female,38,nc,212,forsyth,wake,27106, 
+0_5622_10171010,0,5622,10171010,terry,houser,male,53,nc,1203,pender,topsail,28445,9107786
+0_5640_563518,0,5640,563518,amanda,conard,female,34,nc,9,buncombe,sunny ridge,28804,6458096
+0_5751_1267326,0,5751,1267326,kristi,whitaker,female,39,nc,316,caldwell,delmar,28638,7268155
+0_5851_2880373,0,5851,2880373,robin,van pelt wilson,female,51,nj,6718,davidson,planters,27265, 
+0_5940_3559041,0,5940,3559041,kossi,agbeve,male,42,oc,300,durham,lynn forest,27713, 
+0_6051_6245092,0,6051,6245092,maureen,reavis,female,91, ,612,hoke,health,28376,8756067
+0_6122_7393104,0,6122,7393104,william,shaw,male,32,nc,6032,mecklenburg,plaza,28215,5350526
+0_6651_13543847,0,6651,13543847,elizabeth,townsend,female,25,nc,1211,wake,apache,27502, 
