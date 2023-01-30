@@ -153,12 +153,13 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
         )
 
     def prefixes(self):
-        self._con.execute(f"drop table if exists {PREFIXES_VIEW}").execute(
-            f"create table {PREFIXES_VIEW} as "
-            "select rid, rlen, token, pos "
-            f"from {TOKENS_DOC_FREQ_VIEW} "
-            f"where rlen - pos + 1 >= ceil(rlen * {self._t}) "
-        )
+        pass
+        #self._con.execute(f"drop table if exists {PREFIXES_VIEW}").execute(
+        #    f"create table {PREFIXES_VIEW} as "
+        #    "select rid, rlen, token, pos "
+        #    f"from {TOKENS_DOC_FREQ_VIEW} "
+        #    f"where rlen - pos + 1 >= ceil(rlen * {self._t}) "
+        #)
 
     def matches(self):
         self._con.execute(
@@ -167,20 +168,21 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             f"CREATE table {CANDIDATE_SET_VIEW} AS "
             "SELECT pr1.rid AS rid1, pr2.rid AS rid2 "
             ", MAX(pr1.pos) as maxPos1, MAX(pr2.pos) as maxPos2, count(*) as prOverlap "
-            f"FROM {PREFIXES_VIEW} pr1, {PREFIXES_VIEW} pr2 "
+           # f"FROM {PREFIXES_VIEW} pr1, {PREFIXES_VIEW} pr2 "
+            f"FROM {TOKENS_DOC_FREQ_VIEW} pr1, {TOKENS_DOC_FREQ_VIEW} pr2 "
             "WHERE pr1.rid < pr2.rid "
             "AND pr1.token = pr2.token "
             # length filter
             f"AND pr1.rlen >= ceil({self._t} * pr2.rlen)"
             # prefix filter
             # This "extra" prefix filter removed some candidates when testing df10 
-            # f"AND pr1.rlen - pr1.pos + 1 >= CEIL(pr1.rlen * 2 * {self._t} / (1+{self._t})) "
+            f"AND pr1.rlen - pr1.pos + 1 >= CEIL(pr1.rlen * {self._t} ) "
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
             f"CEIL((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
             "GROUP BY pr1.rid, pr2.rid "
-        ).execute(
-            f"drop table if exists {PREFIXES_VIEW}"
+        #).execute(
+        #    f"drop table if exists {PREFIXES_VIEW}"
         ).execute(
             f"drop table if exists {self._out_table_name}"
         ).execute(
