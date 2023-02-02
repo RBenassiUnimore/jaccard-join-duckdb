@@ -173,10 +173,9 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             "WHERE pr1.rid < pr2.rid "
             "AND pr1.token = pr2.token "
             # length filter
-            f"AND pr1.rlen >= ceil({self._t} * pr2.rlen)"
+            f"AND pr1.rlen >= ceil(pr2.rlen * {self._t})"
             # prefix filter
-            # This "extra" prefix filter removed some candidates when testing df10 
-            f"AND pr1.rlen - pr1.pos + 1 >= CEIL(pr1.rlen * {self._t} ) "
+            f"AND pr1.rlen - pr1.pos + 1 >= CEIL(pr1.rlen * {self._t}) "
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
             f"CEIL((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
@@ -197,7 +196,7 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             "and r1.pos >= maxPos1 "# "and r1.pos > maxPos1 "
             "and r2.pos >= maxPos2 "# "and r2.pos > maxPos2 "
             "group by r1.rid, r2.rid, r1.rlen, r2.rlen, prOverlap "
-            f"having count(*) + prOverlap - 1 >= (r1.rlen + r2.rlen) * {self._t} / (1+{self._t})"
+            f"having count(*) + prOverlap - 1 >= ((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
             # f"having count(*) + prOverlap >= (r1.rlen + r2.rlen) * {self._t} / (1+{self._t})"
         ).execute(
             f"drop table if exists {CANDIDATE_SET_VIEW}"
@@ -216,7 +215,7 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             "where r1.token = r2.token "
             "and r1.rid < r2.rid "
             "group by r1.rid, r1.rlen, r2.rid, r2.rlen "
-            f"having count(*) >= ceil({self._t} / (1+{self._t}) * (r1.rlen + r2.rlen))"
+            f"having count(*) >= ceil((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
         )
 
     def clear(self):
@@ -345,7 +344,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"and pr1.src = '{self._l_table}' "
             f"and pr2.src = '{self._r_table}'"
             # length filter
-            f"AND pr1.rlen >= ceil({self._t} * pr2.rlen)"
+            f"AND pr1.rlen >= ceil(pr2.rlen * {self._t})"
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
             f"CEIL((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
@@ -365,7 +364,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             "and r1.pos >= maxPos1 "#"and r1.pos > maxPos1 "
             "and r2.pos >= maxPos2 "#"and r2.pos > maxPos2 "
             "group by r1.rid, r2.rid, r1.rlen, r2.rlen, prOverlap "
-            f"having count(*) + prOverlap - 1 >= (r1.rlen + r2.rlen) * {self._t} / (1+{self._t})"
+            f"having count(*) + prOverlap - 1 >= ((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
             #f"having count(*) + prOverlap >= (r1.rlen + r2.rlen) * {self._t} / (1+{self._t})"
         ).execute(
             f"drop table if exists {TOKENS_DOC_FREQ_VIEW}"
@@ -384,7 +383,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             "where r1.token = r2.token "
             f"and r1.src = '{self._l_table}' and r2.src = '{self._r_table}' "
             "group by r1.rid, r1.rlen, r2.rid, r2.rlen "
-            f"having count(*) >= ceil({self._t} / (1+{self._t}) * (r1.rlen + r2.rlen))"
+            f"having count(*) >= ceil((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
         )
 
     def clear(self):
