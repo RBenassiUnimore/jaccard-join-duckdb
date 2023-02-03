@@ -78,6 +78,7 @@ class _JaccardTemplateJoin(ABC):
         self.tokenize()
         self.document_frequency()
         self.prefixes()
+        self.candidates()
         self.matches()
         self.clear()
 
@@ -106,6 +107,10 @@ class _JaccardTemplateJoin(ABC):
 
     @abstractmethod
     def prefixes(self):
+        pass
+
+    @abstractmethod
+    def candidates(self):
         pass
 
     @abstractmethod
@@ -154,35 +159,31 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
 
     def prefixes(self):
         pass
-        #self._con.execute(f"drop table if exists {PREFIXES_VIEW}").execute(
-        #    f"create table {PREFIXES_VIEW} as "
-        #    "select rid, rlen, token, pos "
-        #    f"from {TOKENS_DOC_FREQ_VIEW} "
-        #    f"where rlen - pos + 1 >= ceil(rlen * {self._t}) "
-        #)
 
-    def matches(self):
+    def candidates(self):
         self._con.execute(
             f"drop table if exists {CANDIDATE_SET_VIEW}"
         ).execute(
             f"CREATE table {CANDIDATE_SET_VIEW} AS "
             "SELECT pr1.rid AS rid1, pr2.rid AS rid2 "
             ", MAX(pr1.pos) as maxPos1, MAX(pr2.pos) as maxPos2, count(*) as prOverlap "
-           # f"FROM {PREFIXES_VIEW} pr1, {PREFIXES_VIEW} pr2 "
             f"FROM {TOKENS_DOC_FREQ_VIEW} pr1, {TOKENS_DOC_FREQ_VIEW} pr2 "
             "WHERE pr1.rid < pr2.rid "
             "AND pr1.token = pr2.token "
             # length filter
-            f"AND pr1.rlen >= ceil(pr2.rlen * {self._t})"
+            f"AND pr1.rlen >= (pr2.rlen * {self._t})"
+            f"AND pr2.rlen >= (pr1.rlen * {self._t})"
             # prefix filter
-            f"AND pr1.rlen - pr1.pos + 1 >= CEIL(pr1.rlen * {self._t}) "
+            f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * {self._t}) "
+            f"AND pr2.rlen - pr2.pos + 1 >= (pr2.rlen * {self._t}) "
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
-            f"CEIL((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
+            f"((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
             "GROUP BY pr1.rid, pr2.rid "
-        #).execute(
-        #    f"drop table if exists {PREFIXES_VIEW}"
-        ).execute(
+        )
+
+    def matches(self):
+        self._con.execute(
             f"drop table if exists {self._out_table_name}"
         ).execute(
             # Start from the last match included to include the pairs in which the prefixes match entirely but the
@@ -193,11 +194,10 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             "where c.rid1 = r1.rid "
             "and c.rid2 = r2.rid "
             "and r1.token = r2.token "
-            "and r1.pos >= maxPos1 "# "and r1.pos > maxPos1 "
-            "and r2.pos >= maxPos2 "# "and r2.pos > maxPos2 "
+            "and r1.pos >= maxPos1 "
+            "and r2.pos >= maxPos2 "
             "group by r1.rid, r2.rid, r1.rlen, r2.rlen, prOverlap "
             f"having count(*) + prOverlap - 1 >= ((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
-            # f"having count(*) + prOverlap >= (r1.rlen + r2.rlen) * {self._t} / (1+{self._t})"
         ).execute(
             f"drop table if exists {CANDIDATE_SET_VIEW}"
         ).execute(
@@ -210,12 +210,12 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
         ).execute(
             f"create table {self._out_table_name} as "
             "select r1.rid as rid1, r2.rid as rid2 "
-            #f", count(*) as overlap "
+            # f", count(*) as overlap "
             f"from {TOKENS_VIEW} as r1, {TOKENS_VIEW} as r2 "
             "where r1.token = r2.token "
             "and r1.rid < r2.rid "
             "group by r1.rid, r1.rlen, r2.rid, r2.rlen "
-            f"having count(*) >= ceil((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
+            f"having count(*) >= ((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
         )
 
     def clear(self):
@@ -278,10 +278,8 @@ class _JaccardJoin(_JaccardTemplateJoin):
         ).execute(
             # Include widows, with df=null
             f"create table {DOC_FREQ_VIEW} as ("
-            "select coalesce(tk1, tk2) as token, df1 * df2 as df "#"select tk1 as token, df1 * df2 as df "
+            "select coalesce(tk1, tk2) as token, df1 * df2 as df "
             f"from full_outer_{DOC_FREQ_VIEW} "
-            #"where tk1 is not null "
-            #"and tk2 is not null "
             ")"
         ).execute(
             f"drop table if exists {TOKENS_DOC_FREQ_VIEW}"
@@ -290,7 +288,6 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"create table {TOKENS_DOC_FREQ_VIEW} as "
             f"select {TOKENS_VIEW}.* "
             f", row_number() OVER (PARTITION BY rid ORDER BY coalesce(df, 10000), {TOKENS_VIEW}.token) as pos "
-            #f", row_number() OVER (PARTITION BY rid ORDER BY df, {TOKENS_VIEW}.token) as pos "
             f"from {TOKENS_VIEW}, {DOC_FREQ_VIEW} "
             f"where {TOKENS_VIEW}.token = {DOC_FREQ_VIEW}.token"
         ).execute(
@@ -323,16 +320,16 @@ class _JaccardJoin(_JaccardTemplateJoin):
             "SELECT * "
             f"FROM {TOKENS_DOC_FREQ_VIEW} "
             f"where src = '{r}' "
-            f"and rlen - pos + 1 >= ceil(rlen * {self._t}) "
+            f"and rlen - pos + 1 >= (rlen * {self._t}) "
             ") union ("
             "SELECT * "
             f"FROM {TOKENS_DOC_FREQ_VIEW} "
             f"where src = '{s}' "
-            f"and rlen - pos + 1 >= ceil(rlen * 2 * {self._t} / (1+{self._t})) "
+            f"and rlen - pos + 1 >= (rlen * 2 * {self._t} / (1+{self._t})) "
             ")"
         )
 
-    def matches(self):
+    def candidates(self):
         self._con.execute(
             f"drop table if exists {CANDIDATE_SET_VIEW}"
         ).execute(
@@ -344,15 +341,19 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"and pr1.src = '{self._l_table}' "
             f"and pr2.src = '{self._r_table}'"
             # length filter
-            f"AND pr1.rlen >= ceil(pr2.rlen * {self._t})"
+            f"AND pr1.rlen >= (pr2.rlen * {self._t})"
+            f"AND pr2.rlen >= (pr2.rlen * {self._t})"
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
-            f"CEIL((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
+            f"((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
             "GROUP BY pr1.rid, pr2.rid "
             ")"
         ).execute(
             f"drop table if exists {PREFIXES_VIEW}"
-        ).execute(
+        )
+
+    def matches(self):
+        self._con.execute(
             f"drop table if exists {self._out_table_name}"
         ).execute(
             f"create table {self._out_table_name} as "
@@ -361,11 +362,10 @@ class _JaccardJoin(_JaccardTemplateJoin):
             "where c.rid1 = r1.rid "
             "and c.rid2 = r2.rid "
             "and r1.token = r2.token "
-            "and r1.pos >= maxPos1 "#"and r1.pos > maxPos1 "
-            "and r2.pos >= maxPos2 "#"and r2.pos > maxPos2 "
+            "and r1.pos >= maxPos1 "
+            "and r2.pos >= maxPos2 "
             "group by r1.rid, r2.rid, r1.rlen, r2.rlen, prOverlap "
             f"having count(*) + prOverlap - 1 >= ((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
-            #f"having count(*) + prOverlap >= (r1.rlen + r2.rlen) * {self._t} / (1+{self._t})"
         ).execute(
             f"drop table if exists {TOKENS_DOC_FREQ_VIEW}"
         ).execute(
@@ -383,7 +383,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             "where r1.token = r2.token "
             f"and r1.src = '{self._l_table}' and r2.src = '{self._r_table}' "
             "group by r1.rid, r1.rlen, r2.rid, r2.rlen "
-            f"having count(*) >= ceil((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
+            f"having count(*) >= ((r1.rlen + r2.rlen) * {self._t} / (1+{self._t}))"
         )
 
     def clear(self):
