@@ -149,6 +149,7 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             f"CREATE table {TOKENS_DOC_FREQ_VIEW} AS "
             f"select rid, rlen, {TOKENS_VIEW}.token "
             f", row_number() OVER (PARTITION BY rid ORDER BY df, {TOKENS_VIEW}.token) as pos "
+            f", concat(rlen, '_', rid) as lrid "
             f"from {TOKENS_VIEW}, {DOC_FREQ_VIEW} "
             f"where {TOKENS_VIEW}.token = {DOC_FREQ_VIEW}.token"
         ).execute(
@@ -168,13 +169,15 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             "SELECT pr1.rid AS rid1, pr2.rid AS rid2 "
             ", MAX(pr1.pos) as maxPos1, MAX(pr2.pos) as maxPos2, count(*) as prOverlap "
             f"FROM {TOKENS_DOC_FREQ_VIEW} pr1, {TOKENS_DOC_FREQ_VIEW} pr2 "
-            "WHERE pr1.rid < pr2.rid "
+            # "WHERE pr1.rid < pr2.rid "
+            "where pr1.lrid < pr2.lrid "
             "AND pr1.token = pr2.token "
             # length filter
             f"AND pr1.rlen >= (pr2.rlen * {self._t})"
-            f"AND pr2.rlen >= (pr1.rlen * {self._t})"
+            # f"AND pr2.rlen >= (pr1.rlen * {self._t})"
             # prefix filter
-            f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * {self._t}) "
+            # f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * {self._t}) "
+            f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * 2 * {self._t} / (1 + {self._t})) "
             f"AND pr2.rlen - pr2.pos + 1 >= (pr2.rlen * {self._t}) "
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
