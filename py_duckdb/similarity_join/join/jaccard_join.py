@@ -345,7 +345,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"and pr2.src = '{self._r_table}'"
             # length filter
             f"AND pr1.rlen >= (pr2.rlen * {self._t})"
-            f"AND pr2.rlen >= (pr2.rlen * {self._t})"
+            f"AND pr2.rlen >= (pr1.rlen * {self._t})"
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
             f"((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
