@@ -4,12 +4,12 @@ from py_duckdb.similarity_join.tokenizers import *
 
 def evaluate(
         con: duckdb.DuckDBPyConnection,
-        ground_truth_table: string,
-        similarity_join_table: string,
-        gt_l_key='rid1',
-        gt_r_key='rid2',
-        sj_l_key='rid1',
-        sj_r_key='rid2'
+        ground_truth_table: str,
+        similarity_join_table: str,
+        gt_l_key='l_rid',
+        gt_r_key='r_rid',
+        sj_l_key='l_rid',
+        sj_r_key='r_rid'
 ):
     con.execute("drop view if exists confusion_mtx").execute(
         "create view confusion_mtx as "

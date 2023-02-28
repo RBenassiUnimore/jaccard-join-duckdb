@@ -1,4 +1,3 @@
-import string
 from abc import ABC, abstractmethod
 
 import duckdb
@@ -9,42 +8,55 @@ from py_duckdb.similarity_join.default_names import *
 
 def jaccard_join(
         con: duckdb.DuckDBPyConnection,
-        l_table: string,
-        r_table: string,
-        l_key_attr: string,
-        r_key_attr: string,
-        l_join_attr: string,
-        r_join_attr: string,
+        l_table: str,
+        r_table: str,
+        l_key_attr: str,
+        r_key_attr: str,
+        l_join_attr: str,
+        r_join_attr: str,
         tokenizer: tokenizers.Tokenizer,
         threshold: float,
-        out_table_name: string):
+        out_table_name: str,
+        l_out_prefix: str = 'l_',
+        r_out_prefix: str = 'r_'
+):
     if l_table:
         if l_table == r_table or not r_table:
-            _JaccardSelfJoin(con, l_table, l_key_attr, l_join_attr, tokenizer, threshold, out_table_name).do_join()
+            _JaccardSelfJoin(
+                con, l_table, l_key_attr, l_join_attr, tokenizer, threshold, out_table_name, l_out_prefix, r_out_prefix
+            ).do_join()
         else:
-            _JaccardJoin(con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
-                         out_table_name).do_join()
+            _JaccardJoin(
+                con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
+                out_table_name, l_out_prefix, r_out_prefix
+            ).do_join()
     return con
 
 
 def jaccard_join_brute_force(
         con: duckdb.DuckDBPyConnection,
-        l_table: string,
-        r_table: string,
-        l_key_attr: string,
-        r_key_attr: string,
-        l_join_attr: string,
-        r_join_attr: string,
+        l_table: str,
+        r_table: str,
+        l_key_attr: str,
+        r_key_attr: str,
+        l_join_attr: str,
+        r_join_attr: str,
         tokenizer: tokenizers.Tokenizer,
         threshold: float,
-        out_table_name: string):
+        out_table_name: str,
+        l_out_prefix: str = 'l_',
+        r_out_prefix: str = 'r_'
+):
     if l_table:
         if l_table == r_table or not r_table:
-            _JaccardSelfJoin(con, l_table, l_key_attr, l_join_attr, tokenizer, threshold, out_table_name
-                             ).do_brute_force_join()
+            _JaccardSelfJoin(
+                con, l_table, l_key_attr, l_join_attr, tokenizer, threshold, out_table_name, l_out_prefix, r_out_prefix
+            ).do_brute_force_join()
         else:
-            _JaccardJoin(con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
-                         out_table_name).do_brute_force_join()
+            _JaccardJoin(
+                con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
+                out_table_name, l_out_prefix, r_out_prefix
+            ).do_brute_force_join()
     return con
 
 
@@ -53,15 +65,18 @@ class _JaccardTemplateJoin(ABC):
     def __init__(
             self,
             con: duckdb.DuckDBPyConnection,
-            l_table: string,
-            r_table: string,
-            l_key_attr: string,
-            r_key_attr: string,
-            l_join_attr: string,
-            r_join_attr: string,
+            l_table: str,
+            r_table: str,
+            l_key_attr: str,
+            r_key_attr: str,
+            l_join_attr: str,
+            r_join_attr: str,
             tokenizer: tokenizers.Tokenizer,
             threshold: float,
-            out_table_name: string):
+            out_table_name: str,
+            l_out_prefix: str,
+            r_out_prefix: str
+    ):
         self._con = con
         self._l_table = l_table
         self._r_table = r_table
@@ -72,6 +87,9 @@ class _JaccardTemplateJoin(ABC):
         self._t = threshold
         self._tokenizer = tokenizer
         self._out_table_name = out_table_name
+        self._l_out_prefix = l_out_prefix
+        self._r_out_prefix = r_out_prefix
+
         self._l_count = 0
         self._r_count = 0
         self._widow_placeholder = 0
@@ -192,7 +210,7 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             # Start from the last match included to include the pairs in which the prefixes match entirely but the
             # suffixes do not match at all
             f"create table {self._out_table_name} as "
-            "select r1.rid as rid1, r2.rid as rid2 "
+            f"select r1.rid as {self._l_out_prefix}{self._l_key_attr}, r2.rid as {self._r_out_prefix}{self._r_key_attr} "
             f"from {TOKENS_DOC_FREQ_VIEW} r1, {TOKENS_DOC_FREQ_VIEW} r2, {CANDIDATE_SET_VIEW} c "
             "where c.rid1 = r1.rid "
             "and c.rid2 = r2.rid "
@@ -212,7 +230,7 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             f"drop table if exists {self._out_table_name}"
         ).execute(
             f"create table {self._out_table_name} as "
-            "select r1.rid as rid1, r2.rid as rid2 "
+            f"select r1.rid as {self._l_out_prefix}{self._l_key_attr}, r2.rid as {self._r_out_prefix}{self._r_key_attr} "
             f"from {TOKENS_VIEW} as r1, {TOKENS_VIEW} as r2 "
             "where r1.token = r2.token "
             "and r1.rid < r2.rid "
@@ -233,13 +251,19 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
     def __init__(
             self,
             con: duckdb.DuckDBPyConnection,
-            table: string,
-            key_attr: string,
-            join_attr: string,
+            table: str,
+            key_attr: str,
+            join_attr: str,
             tokenizer: tokenizers.Tokenizer,
             threshold: float,
-            out_table_name: string):
-        super().__init__(con, table, None, key_attr, None, join_attr, None, tokenizer, threshold, out_table_name)
+            out_table_name: str,
+            l_out_prefix: str,
+            r_out_prefix: str
+    ):
+        super().__init__(
+            con, table, None, key_attr, key_attr, join_attr, None, tokenizer, threshold, out_table_name,
+            l_out_prefix, r_out_prefix
+        )
 
 
 class _JaccardJoin(_JaccardTemplateJoin):
@@ -345,7 +369,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
 
         r, s = (self._l_table, self._r_table) if l_widows > r_widows else (self._r_table, self._l_table)
         r_pfx, s_pfx = (f'l_{PREFIXES_VIEW}', f'r_{PREFIXES_VIEW}') if l_widows > r_widows else (
-        f'r_{PREFIXES_VIEW}', f'l_{PREFIXES_VIEW}')
+            f'r_{PREFIXES_VIEW}', f'l_{PREFIXES_VIEW}')
 
         self._con.execute(
             f"drop table if exists {s_pfx}"
@@ -399,7 +423,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"drop table if exists {self._out_table_name}"
         ).execute(
             f"create table {self._out_table_name} as "
-            "select r1.rid as rid1, r2.rid as rid2 "
+            f"select r1.rid as {self._l_out_prefix}{self._l_key_attr}, r2.rid as {self._r_out_prefix}{self._r_key_attr} "
             f"from {TOKENS_DOC_FREQ_VIEW} r1, {TOKENS_DOC_FREQ_VIEW} r2, {CANDIDATE_SET_VIEW} c "
             "where c.rid1 = r1.rid "
             "and c.rid2 = r2.rid "
@@ -419,7 +443,7 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"drop table if exists {self._out_table_name}"
         ).execute(
             f"create table {self._out_table_name} as "
-            "select r1.rid as rid1, r2.rid as rid2 "
+            f"select r1.rid as {self._l_out_prefix}{self._l_key_attr}, r2.rid as {self._r_out_prefix}{self._r_key_attr} "
             f"from {TOKENS_VIEW} as r1, {TOKENS_VIEW} as r2 "
             "where r1.token = r2.token "
             f"and r1.src = '{self._l_table}' and r2.src = '{self._r_table}' "
@@ -441,14 +465,19 @@ class _JaccardJoin(_JaccardTemplateJoin):
     def __init__(
             self,
             con: duckdb.DuckDBPyConnection,
-            l_table: string,
-            r_table: string,
-            l_key_attr: string,
-            r_key_attr: string,
-            l_join_attr: string,
-            r_join_attr: string,
+            l_table: str,
+            r_table: str,
+            l_key_attr: str,
+            r_key_attr: str,
+            l_join_attr: str,
+            r_join_attr: str,
             tokenizer: tokenizers.Tokenizer,
             threshold: float,
-            out_table_name: string):
-        super().__init__(con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
-                         out_table_name)
+            out_table_name: str,
+            l_out_prefix: str,
+            r_out_prefix: str
+    ):
+        super().__init__(
+            con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
+            out_table_name, l_out_prefix, r_out_prefix
+        )
