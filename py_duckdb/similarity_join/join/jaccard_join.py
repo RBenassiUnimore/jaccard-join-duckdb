@@ -72,6 +72,9 @@ class _JaccardTemplateJoin(ABC):
         self._t = threshold
         self._tokenizer = tokenizer
         self._out_table_name = out_table_name
+        self._l_count = 0
+        self._r_count = 0
+        self._widow_placeholder = 0
 
     def do_join(self):
         self.build_input()
@@ -169,16 +172,13 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
             "SELECT pr1.rid AS rid1, pr2.rid AS rid2 "
             ", MAX(pr1.pos) as maxPos1, MAX(pr2.pos) as maxPos2, count(*) as prOverlap "
             f"FROM {TOKENS_DOC_FREQ_VIEW} pr1, {TOKENS_DOC_FREQ_VIEW} pr2 "
-            # "WHERE pr1.rid < pr2.rid "
-            "where pr1.lrid < pr2.lrid "
+            "where pr1.lrid < pr2.lrid "  # pr2 longest
             "AND pr1.token = pr2.token "
             # length filter
-            f"AND pr1.rlen >= (pr2.rlen * {self._t})"
-            # f"AND pr2.rlen >= (pr1.rlen * {self._t})"
+            f"AND pr1.rlen >= (pr2.rlen * {self._t})"  # pr2 longest
             # prefix filter
-            # f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * {self._t}) "
-            f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * 2 * {self._t} / (1 + {self._t})) "
-            f"AND pr2.rlen - pr2.pos + 1 >= (pr2.rlen * {self._t}) "
+            f"AND pr1.rlen - pr1.pos + 1 >= (pr1.rlen * 2 * {self._t} / (1 + {self._t})) "  # indexing prefix
+            f"AND pr2.rlen - pr2.pos + 1 >= (pr2.rlen * {self._t}) "  # probing prefix
             # positional filter
             "AND LEAST((pr1.rlen - pr1.pos + 1), (pr2.rlen - pr2.pos + 1)) >= "
             f"((pr1.rlen + pr2.rlen) * {self._t} / (1 + {self._t})) "
@@ -213,7 +213,6 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
         ).execute(
             f"create table {self._out_table_name} as "
             "select r1.rid as rid1, r2.rid as rid2 "
-            # f", count(*) as overlap "
             f"from {TOKENS_VIEW} as r1, {TOKENS_VIEW} as r2 "
             "where r1.token = r2.token "
             "and r1.rid < r2.rid "
@@ -257,40 +256,52 @@ class _JaccardJoin(_JaccardTemplateJoin):
             f"from '{self._r_table}' )"
         )
 
+        self._l_count = self._con.execute(
+            "select count(*) "
+            f"from {self._l_table}"
+        ).fetchall()[0][0]
+        self._r_count = self._con.execute(
+            "select count(*) "
+            f"from {self._r_table}"
+        ).fetchall()[0][0]
+
     def document_frequency(self):
+        # the document frequency of widow tokens is the max possible df + 1
+        # this works both as unambiguous placeholder and to put widow tokens at the end in the ordering heustic
+        self._widow_placeholder = self._l_count * self._r_count + 1
+
         self._con.execute(
             f"drop table if exists full_outer_{DOC_FREQ_VIEW}"
         ).execute(
             f"create table full_outer_{DOC_FREQ_VIEW} as "
-            "select s1.token as tk1, s1.df as df1, s2.token as tk2, s2.df as df2 "
+            "select l_tks.token as l_tk, l_tks.df as l_df, r_tks.token as r_tk, r_tks.df as r_df "
             "from ("
             "SELECT token, count(*) AS df "
             f"FROM {TOKENS_VIEW} "
             f"where src = '{self._l_table}' "
             "GROUP BY token "
-            ") as s1 "
+            ") as l_tks "
             "full outer join ("
             "SELECT token, count(*) AS df "
             f"FROM {TOKENS_VIEW} "
             f"where src = '{self._r_table}' "
             "GROUP BY token "
-            ") as s2 "
-            "on s1.token = s2.token"
+            ") as r_tks "
+            "on l_tks.token = r_tks.token"
         ).execute(
             f"drop table if exists {DOC_FREQ_VIEW}"
         ).execute(
             # Include widows, with df=null
             f"create table {DOC_FREQ_VIEW} as ("
-            "select coalesce(tk1, tk2) as token, df1 * df2 as df "
+            f"select coalesce(l_tk, r_tk) as token, coalesce(l_df * r_df, {self._widow_placeholder}) as df "
             f"from full_outer_{DOC_FREQ_VIEW} "
             ")"
         ).execute(
             f"drop table if exists {TOKENS_DOC_FREQ_VIEW}"
         ).execute(
-            # Arbitrary high df to widows, to preserve them in the table but not in the prefixes
             f"create table {TOKENS_DOC_FREQ_VIEW} as "
-            f"select {TOKENS_VIEW}.* "
-            f", row_number() OVER (PARTITION BY rid ORDER BY coalesce(df, 10000), {TOKENS_VIEW}.token) as pos "
+            f"select {TOKENS_VIEW}.*, {DOC_FREQ_VIEW}.df "
+            f", row_number() OVER (PARTITION BY rid ORDER BY df, {TOKENS_VIEW}.token) as pos "
             f"from {TOKENS_VIEW}, {DOC_FREQ_VIEW} "
             f"where {TOKENS_VIEW}.token = {DOC_FREQ_VIEW}.token"
         ).execute(
@@ -300,36 +311,64 @@ class _JaccardJoin(_JaccardTemplateJoin):
         )
 
     def prefixes(self):
-        widows1 = self._con.execute(
+        self._con.execute(
+            f"drop table if exists l_{PREFIXES_VIEW}"
+        ).execute(
+            f"create table l_{PREFIXES_VIEW} as "
+            "select * "
+            f"FROM {TOKENS_DOC_FREQ_VIEW} "
+            f"where src = '{self._l_table}' "
+            f"and rlen - pos + 1 >= (rlen * 2 * {self._t} / (1+{self._t})) "  # indexing prefix
+        ).execute(
+            f"drop table if exists r_{PREFIXES_VIEW}"
+        ).execute(
+            f"create table r_{PREFIXES_VIEW} as "
+            "select * "
+            f"FROM {TOKENS_DOC_FREQ_VIEW} "
+            f"where src = '{self._r_table}' "
+            f"and rlen - pos + 1 >= (rlen * 2 * {self._t} / (1+{self._t})) "  # indexing prefix
+        )
+
+        l_widows = self._con.execute(
             "select count(*) "
-            f"from full_outer_{DOC_FREQ_VIEW} "
-            "where tk2 is null"
+            f"from l_{PREFIXES_VIEW} "
+            f"where src = '{self._l_table}' "
+            f"and df = {self._widow_placeholder}"
         ).fetchall()[0][0]
-        widows2 = self._con.execute(
+
+        r_widows = self._con.execute(
             "select count(*) "
-            f"from full_outer_{DOC_FREQ_VIEW} "
-            "where tk1 is null"
+            f"from r_{PREFIXES_VIEW} "
+            f"where src = '{self._r_table}' "
+            f"and df = {self._widow_placeholder}"
         ).fetchall()[0][0]
-        r, s = (self._l_table, self._r_table) if widows1 > widows2 else (self._r_table, self._l_table)
+
+        r, s = (self._l_table, self._r_table) if l_widows > r_widows else (self._r_table, self._l_table)
+        r_pfx, s_pfx = (f'l_{PREFIXES_VIEW}', f'r_{PREFIXES_VIEW}') if l_widows > r_widows else (
+        f'r_{PREFIXES_VIEW}', f'l_{PREFIXES_VIEW}')
 
         self._con.execute(
-            f"drop table if exists full_outer_{DOC_FREQ_VIEW}"
+            f"drop table if exists {s_pfx}"
         ).execute(
+            f"create table {s_pfx} as "
+            "select * "
+            f"FROM {TOKENS_DOC_FREQ_VIEW} "
+            f"where src = '{s}' "
+            f"and rlen - pos + 1 >= (rlen * {self._t}) "  # probing prefix
+        )
+
+        self._con.execute(
             f"drop table if exists {PREFIXES_VIEW}"
         ).execute(
             f"create table {PREFIXES_VIEW} as "
             "select src, rid, rlen, token, pos "
-            "from ("
-            "SELECT * "
-            f"FROM {TOKENS_DOC_FREQ_VIEW} "
-            f"where src = '{r}' "
-            f"and rlen - pos + 1 >= (rlen * {self._t}) "
-            ") union ("
-            "SELECT * "
-            f"FROM {TOKENS_DOC_FREQ_VIEW} "
-            f"where src = '{s}' "
-            f"and rlen - pos + 1 >= (rlen * 2 * {self._t} / (1+{self._t})) "
-            ")"
+            f"from {r_pfx} "
+            "union "
+            "select src, rid, rlen, token, pos "
+            f"from {s_pfx} "
+        ).execute(
+            f"drop table if exists {r_pfx};"
+            f"drop table if exists {s_pfx};"
         )
 
     def candidates(self):
@@ -381,7 +420,6 @@ class _JaccardJoin(_JaccardTemplateJoin):
         ).execute(
             f"create table {self._out_table_name} as "
             "select r1.rid as rid1, r2.rid as rid2 "
-            # ", count(*) as overlap "
             f"from {TOKENS_VIEW} as r1, {TOKENS_VIEW} as r2 "
             "where r1.token = r2.token "
             f"and r1.src = '{self._l_table}' and r2.src = '{self._r_table}' "
