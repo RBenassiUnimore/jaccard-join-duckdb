@@ -1,12 +1,11 @@
-import string
-
 from py_duckdb.similarity_join.default_names import INPUT_TABLE
 
 
 class Tokenizer:
 
-    def __init__(self, query: string):
-        self.__query = query
+    def __init__(self, query: str, return_set=True):
+        # assuming queries use DuckDB's 'list_distinct()' to generate a set rather than a bag
+        self.__query = query if return_set else query.replace("list_distinct", "")
 
     def query(self, from_table=INPUT_TABLE):
         return self.__query.format(from_table=from_table)
@@ -14,30 +13,40 @@ class Tokenizer:
 
 class QGramsTokzr(Tokenizer):
 
-    def __init__(self, q=3):
-        super().__init__(
-            "select src, rid, len(tks) as rlen, lower(unnest(tks)) as token "
-            "from ( "
-            f"select rid, list_distinct(list_transform(generate_series(1, len(val) + {q} - 1), x -> "
-            f"substring(concat(repeat('#', {q} - 1), "
-            "lower(val), "
-            f"repeat('#',{q} - 1)),"
-            f"x, {q}))) as tks "
-            ", src "
-            "from {from_table} "
-            ") "
-        )
-
-
-class WordsTokzr(Tokenizer):
-    default_seps = r"""'[!"#$%&()*+,-./:;<=>?@[\]^_`{{|}}~""" + string.whitespace + r"""]'"""
-
-    def __init__(self, separators=default_seps):
+    def __init__(self, q, return_set=True):
         super().__init__(
             "select src, rid, len(tks) as rlen, lower(unnest(tks)) as token "
             "from ( "
             f"select src, rid, "
-            f"list_distinct(list_filter(str_split_regex(val, {separators}), x -> trim(x) != '')) as tks """
+            f"list_distinct(list_transform(generate_series(1, len(val) + {q} - 1), x -> "
+            f"substring(concat(repeat('#', {q} - 1), "
+            "lower(val), "
+            f"repeat('#',{q} - 1)),"
+            f"x, {q}))) as tks "
             "from {from_table} "
-            ") "
+            ") ",
+            return_set
         )
+
+
+class DelimiterTokzr(Tokenizer):
+
+    def __init__(self, separators: list or set, return_set=True):
+        if isinstance(separators, list):
+            separators = set(separators)
+        separators = f"""[{''.join(separators)}]"""
+        super().__init__(
+            "select src, rid, len(tks) as rlen, lower(unnest(tks)) as token "
+            "from ( "
+            f"select src, rid, "
+            f"list_distinct(list_filter(str_split_regex(val, '{separators}'), x -> trim(x) != '')) as tks """
+            "from {from_table} "
+            ") ",
+            return_set
+        )
+
+
+class WhitespaceTokzr(DelimiterTokzr):
+
+    def __init__(self, return_set=True):
+        super().__init__({' ', '\t', '\r', '\n'}, return_set)
