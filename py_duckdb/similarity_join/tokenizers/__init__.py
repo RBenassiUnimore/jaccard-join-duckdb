@@ -13,7 +13,7 @@ class Tokenizer:
 
 class QGramsTokzr(Tokenizer):
 
-    def __init__(self, q, return_set=True):
+    def __init__(self, q: int, return_set=True):
         super().__init__(
             "select src, rid, len(tks) as rlen, lower(unnest(tks)) as token "
             "from ( "
@@ -31,7 +31,7 @@ class QGramsTokzr(Tokenizer):
 
 class DelimiterTokzr(Tokenizer):
 
-    def __init__(self, separators: list or set, return_set=True):
+    def __init__(self, separators: list[str] or set[str], return_set=True):
         if isinstance(separators, list):
             separators = set(separators)
         separators = f"""[{''.join(separators)}]"""
