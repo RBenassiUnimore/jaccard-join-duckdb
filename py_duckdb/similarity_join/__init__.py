@@ -6,10 +6,10 @@ def evaluate(
         con: duckdb.DuckDBPyConnection,
         ground_truth_table: str,
         similarity_join_table: str,
-        gt_l_key='l_rid',
-        gt_r_key='r_rid',
-        sj_l_key='l_rid',
-        sj_r_key='r_rid'
+        gt_l_key='l_id',
+        gt_r_key='r_id',
+        sj_l_key='l_id',
+        sj_r_key='r_id'
 ):
     con.execute("drop view if exists confusion_mtx").execute(
         "create view confusion_mtx as "
