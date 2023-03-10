@@ -1,5 +1,6 @@
-from py_duckdb.similarity_join.join.jaccard_join import *
-from py_duckdb.similarity_join.tokenizers import *
+import duckdb
+from py_duckdb.similarity_join.join.jaccard_join import jaccard_join, jaccard_join_brute_force
+from py_duckdb.similarity_join.tokenizers import QGramsTokzr, DelimiterTokzr, WhitespaceTokzr
 
 
 def evaluate(

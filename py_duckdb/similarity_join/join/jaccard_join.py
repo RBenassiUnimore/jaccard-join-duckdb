@@ -26,7 +26,7 @@ def jaccard_join(
                 con, l_table, l_key_attr, l_join_attr, tokenizer, threshold, out_table, l_out_prefix, r_out_prefix
             ).do_join()
         else:
-            _JaccardJoin(
+            _JaccardInnerJoin(
                 con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
                 out_table, l_out_prefix, r_out_prefix
             ).do_join()
@@ -53,7 +53,7 @@ def jaccard_join_brute_force(
                 con, l_table, l_key_attr, l_join_attr, tokenizer, threshold, out_table, l_out_prefix, r_out_prefix
             ).do_brute_force_join()
         else:
-            _JaccardJoin(
+            _JaccardInnerJoin(
                 con, l_table, r_table, l_key_attr, r_key_attr, l_join_attr, r_join_attr, tokenizer, threshold,
                 out_table, l_out_prefix, r_out_prefix
             ).do_brute_force_join()
@@ -63,23 +63,21 @@ def jaccard_join_brute_force(
 class _JaccardTemplateJoin(ABC):
 
     def do_join(self):
-        self.build_input()
-        self.tokenize()
-        self.document_frequency()
-        self.prefixes()
-        self.candidates()
-        self.matches()
-        self.clear()
+        try:
+            self.tokenize()
+            self.document_frequency()
+            self.prefixes()
+            self.candidates()
+            self.matches()
+        finally:
+            self.clear()
 
     def do_brute_force_join(self):
-        self.build_input()
-        self.tokenize()
-        self.matches_brute_force()
-        self.clear()
-
-    @abstractmethod
-    def build_input(self):
-        pass
+        try:
+            self.tokenize()
+            self.matches_brute_force()
+        finally:
+            self.clear()
 
     @abstractmethod
     def tokenize(self):
@@ -112,24 +110,14 @@ class _JaccardTemplateJoin(ABC):
 
 class _JaccardSelfJoin(_JaccardTemplateJoin):
 
-    def build_input(self):
-        self._con.execute(
-            f"drop table if exists {INPUT_TABLE}"
-        ).execute(
-            f"create table {INPUT_TABLE} as "
-            f"select {self._key_attr} as id, {self._join_attr} as val "
-            f"from '{self._table}' "
-        )
-
     def tokenize(self):
         self._con.execute(
             f"drop table if exists {TOKENS_VIEW}"
         ).execute(
             f"create table {TOKENS_VIEW} as " + self._tokenizer.query(
-                from_table=INPUT_TABLE, key=self._key_attr, val=self._join_attr
+                from_table=self._table,
+                key=self._key_attr, val=self._join_attr
             )
-        ).execute(
-            f"drop table if exists {INPUT_TABLE}"
         )
 
     def document_frequency(self):
@@ -214,7 +202,6 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
 
     def clear(self):
         self._con.execute(
-            f"drop table if exists {INPUT_TABLE};"
             f"drop table if exists {TOKENS_VIEW};"
             f"drop table if exists {DOC_FREQ_VIEW};"
             f"drop table if exists {TOKENS_DOC_FREQ_VIEW};"
@@ -245,46 +232,34 @@ class _JaccardSelfJoin(_JaccardTemplateJoin):
         self._r_out_prefix = r_out_prefix
 
 
-class _JaccardJoin(_JaccardTemplateJoin):
+class _JaccardInnerJoin(_JaccardTemplateJoin):
 
-    def build_input(self):
-        self._con.execute(
-            f"drop table if exists l_{INPUT_TABLE};"
-            f"drop table if exists r_{INPUT_TABLE};"
-        ).execute(
-            f"create table l_{INPUT_TABLE} as "
-            f"select {self._l['key_attr']} as id, {self._l['join_attr']} as val "
-            f"from '{self._l['table']}' "
-        ).execute(
-            f"create table r_{INPUT_TABLE} as "
-            f"select {self._r['key_attr']} as id, {self._r['join_attr']} as val "
-            f"from '{self._r['table']}' "
-        )
-
+    def tokenize(self):
         self._l['count'] = self._con.execute(
             "select count(*) "
-            f"from l_{INPUT_TABLE}"
+            f"from {self._l['table']}"
         ).fetchall()[0][0]
         self._r['count'] = self._con.execute(
             "select count(*) "
-            f"from r_{INPUT_TABLE}"
+            f"from {self._r['table']}"
         ).fetchall()[0][0]
 
-    def tokenize(self):
         self._con.execute(
             f"drop table if exists l_{TOKENS_VIEW}"
         ).execute(
-            f"create table l_{TOKENS_VIEW} as " + self._tokenizer.query(f'l_{INPUT_TABLE}')
-        ).execute(
-            f"drop table if exists l_{INPUT_TABLE}"
+            f"create table l_{TOKENS_VIEW} as " + self._tokenizer.query(
+                from_table=self._l['table'],
+                key=self._l['key_attr'], val=self._l['join_attr']
+            )
         )
 
         self._con.execute(
             f"drop table if exists r_{TOKENS_VIEW}"
         ).execute(
-            f"create table r_{TOKENS_VIEW} as " + self._tokenizer.query(f'r_{INPUT_TABLE}')
-        ).execute(
-            f"drop table if exists r_{INPUT_TABLE}"
+            f"create table r_{TOKENS_VIEW} as " + self._tokenizer.query(
+                from_table=self._r['table'],
+                key=self._r['key_attr'], val=self._r['join_attr']
+            )
         )
 
     def document_frequency(self):
@@ -446,8 +421,6 @@ class _JaccardJoin(_JaccardTemplateJoin):
 
     def clear(self):
         self._con.execute(
-            f"drop table if exists l_{INPUT_TABLE};"
-            f"drop table if exists r_{INPUT_TABLE};"
             f"drop table if exists l_{TOKENS_VIEW};"
             f"drop table if exists r_{TOKENS_VIEW};"
             f"drop table if exists full_outer_{DOC_FREQ_VIEW};"

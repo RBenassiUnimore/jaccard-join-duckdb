@@ -1,13 +1,10 @@
-from py_duckdb.similarity_join.default_names import INPUT_TABLE
-
-
 class Tokenizer:
 
     def __init__(self, query: str, return_set=True):
         # assuming queries use DuckDB's 'list_distinct()' to generate a set rather than a bag
         self.__query = query if return_set else query.replace("list_distinct", "")
 
-    def query(self, from_table=INPUT_TABLE, key='id', val='val'):
+    def query(self, from_table, key, val):
         return self.__query.format(from_table=from_table, key=key, val=val)
 
 
